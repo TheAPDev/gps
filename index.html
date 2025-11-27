@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Intelligence Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-shadow: 2px 4px 15px rgba(0,0,0,0.2);
+      letter-spacing: -1px;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      opacity: 0.95;
+      letter-spacing: 0.5px;
+    }
+
+    .main-card {
+      background: white;
+      border-radius: 25px;
+      padding: 50px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: slideUp 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+      background-size: 200% 100%;
+    }
+
+    .traffic-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      animation: bounce 2s infinite;
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    #question {
+      flex: 1;
+      padding: 16px 24px;
+      font-size: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+
+    #question:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+      transform: translateY(-2px);
+    }
+
+    #question::placeholder {
+      color: #999;
+    }
+
+    .ask-button {
+      padding: 16px 48px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      white-space: nowrap;
+    }
+
+    .ask-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    .ask-button:active {
+      transform: translateY(-1px);
+    }
+
+    .ask-button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .results-container {
+      margin-top: 40px;
+      display: none;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    .results-container.show {
+      display: block;
+    }
+
+    .results-header {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .results-badge {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .answer-box {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+      border-left: 5px solid #667eea;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      font-size: 1.05rem;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .answer-box strong {
+      color: #667eea;
+      font-weight: 700;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .results-table thead {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .results-table th {
+      padding: 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .results-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.95rem;
+    }
+
+    .results-table tbody tr:hover {
+      background: #f8f9fa;
+    }
+
+    .results-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .traffic-level {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .traffic-level.severe {
+      background: #ff4757;
+      color: white;
+    }
+
+    .traffic-level.high {
+      background: #ffa502;
+      color: white;
+    }
+
+    .traffic-level.moderate {
+      background: #ffc107;
+      color: #333;
+    }
+
+    .traffic-level.low {
+      background: #2ed573;
+      color: white;
+    }
+
+    .accident-badge {
+      background: #ff4757;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-radius: 50%;
+      border-top-color: #667eea;
+      animation: spin 0.8s linear infinite;
+      margin-right: 10px;
+    }
+
+    .error-box {
+      background: #ffe0e0;
+      border-left: 5px solid #ff4757;
+      padding: 20px;
+      border-radius: 12px;
+      color: #c92a2a;
+      font-weight: 500;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+    }
+
+    .no-results-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+    }
+
+    .stat-card-label {
+      font-size: 0.85rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+
+    .stat-card-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #667eea;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2.5rem;
+      }
+
+      .main-card {
+        padding: 30px 20px;
+      }
+
+      .input-wrapper {
+        flex-direction: column;
+      }
+
+      .ask-button {
+        width: 100%;
+      }
+
+      .results-table {
+        font-size: 0.85rem;
+      }
+
+      .results-table th,
+      .results-table td {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚗 Traffic Intelligence</h1>
+      <p>Ask Smart Questions • Get Real-Time Insights</p>
+    </div>
+
+    <div class="main-card">
+      <div class="traffic-icon">🛣️</div>
+      
+      <form id="askForm">
+        <div class="form-group">
+          <label class="form-label">Ask Your Traffic Question</label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="question" 
+              placeholder="e.g., How is traffic in Bangalore right now? Is there an accident in Hyderabad?" 
+              required 
+            />
+            <button type="submit" class="ask-button">Ask</button>
+          </div>
+        </div>
+      </form>
+
+      <div id="resultsContainer" class="results-container">
+        <div class="results-header">
+          <span id="resultsTitle">Results</span>
+        </div>
+        
+        <div id="answerBox" class="answer-box"></div>
+        
+        <div id="statsGrid" class="stats-grid"></div>
+        
+        <table id="resultsTable" class="results-table" style="display: none;">
+          <thead>
+            <tr>
+              <th>Area</th>
+              <th>City</th>
+              <th>Traffic Level</th>
+              <th>Avg Speed</th>
+              <th>Time</th>
+              <th>Accident</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:5000';
+
+    document.getElementById('askForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const question = document.getElementById('question').value.trim();
+      
+      if (!question) return;
+
+      const button = document.querySelector('.ask-button');
+      const answerBox = document.getElementById('answerBox');
+      const resultsContainer = document.getElementById('resultsContainer');
+      const resultsTable = document.getElementById('resultsTable');
+      const resultsBody = document.getElementById('resultsBody');
+      const statsGrid = document.getElementById('statsGrid');
+
+      // Show loading state
+      button.disabled = true;
+      button.innerHTML = '<span class="loading-spinner"></span>Loading...';
+      resultsContainer.classList.remove('show');
+
+      try {
+        const res = await fetch(`${API_BASE}/ask`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+
+        if (data.error) {
+          answerBox.innerHTML = `<div class="error-box">⚠️ ${data.error}</div>`;
+          resultsContainer.classList.add('show');
+        } else {
+          const answer = data.answer || 'No answer available';
+          const count = data.count || data.results_count || 0;
+          const preview = data.preview || [];
+
+          // Display main answer
+          answerBox.innerHTML = `<strong>Q:</strong> ${escapeHtml(question)}<br><br><strong>A:</strong> ${escapeHtml(answer)}`;
+
+          // Display stats
+          if (count > 0) {
+            const avgSpeed = preview.length > 0 
+              ? Math.round(preview.reduce((sum, r) => sum + (Number(r.avg_speed_kmph) || 0), 0) / preview.length)
+              : 0;
+            
+            const accidentCount = preview.filter(r => r.accident_reported).length;
+
+            statsGrid.innerHTML = `
+              <div class="stat-card">
+                <div class="stat-card-label">Total Records</div>
+                <div class="stat-card-value">${count}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-label">Avg Speed</div>
+                <div class="stat-card-value">${avgSpeed} km/h</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-label">Accidents</div>
+                <div class="stat-card-value">${accidentCount}</div>
+              </div>
+            `;
+
+            // Populate table
+            resultsBody.innerHTML = '';
+            preview.forEach(record => {
+              const row = document.createElement('tr');
+              const trafficClass = String(record.traffic_level || 'low').toLowerCase();
+              const time = new Date(record.timestamp).toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true 
+              });
+
+              row.innerHTML = `
+                <td><strong>${escapeHtml(record.area || 'N/A')}</strong></td>
+                <td>${escapeHtml(record.city || 'N/A')}</td>
+                <td><span class="traffic-level ${trafficClass}">${escapeHtml(record.traffic_level || 'N/A')}</span></td>
+                <td>${record.avg_speed_kmph || 0} km/h</td>
+                <td>${time}</td>
+                <td>${record.accident_reported ? '<span class="accident-badge">⚠️ YES</span>' : '—'}</td>
+              `;
+              resultsBody.appendChild(row);
+            });
+
+            resultsTable.style.display = preview.length > 0 ? 'table' : 'none';
+          } else {
+            statsGrid.innerHTML = '<div class="no-results"><div class="no-results-icon">🔍</div><p>No matching traffic data found.</p></div>';
+            resultsTable.style.display = 'none';
+          }
+
+          resultsContainer.classList.add('show');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        answerBox.innerHTML = `<div class="error-box">❌ Connection Error: ${escapeHtml(err.message)}</div>`;
+        resultsContainer.classList.add('show');
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Ask';
+      }
+    };
+
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+  </script>
+</body>
+</html>

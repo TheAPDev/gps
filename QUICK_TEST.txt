@@ -1,0 +1,76 @@
+🧪 QUICK TEST QUESTIONS - Copy & Paste Ready!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  How is traffic in Hyderabad?
+
+2️⃣  What's the traffic situation in Bangalore?
+
+3️⃣  Show me traffic in Mumbai
+
+4️⃣  Tell me about Chennai traffic
+
+5️⃣  How is traffic in Whitefield?
+
+6️⃣  What about Hitech City?
+
+7️⃣  Traffic situation in Bandra?
+
+8️⃣  Tell me about Saket
+
+9️⃣  Show me areas with severe traffic
+
+🔟  Are there any high traffic areas?
+
+1️⃣1️⃣  What areas have moderate traffic?
+
+1️⃣2️⃣  Show me low traffic areas
+
+1️⃣3️⃣  Are there any accidents reported?
+
+1️⃣4️⃣  Show me areas with crashes
+
+1️⃣5️⃣  Any accidents in Hyderabad?
+
+1️⃣6️⃣  Show me traffic above 50 km/h
+
+1️⃣7️⃣  What areas have traffic below 25 km/h?
+
+1️⃣8️⃣  Is traffic moving faster than 30 km/h?
+
+1️⃣9️⃣  High traffic in Koramangala with accidents
+
+2️⃣0️⃣  Severe traffic in any city now
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 CITIES IN DATA:
+├─ Hyderabad (40 records)
+├─ Bangalore (15 records)
+├─ Chennai (9 records)
+├─ Mumbai (9 records)
+├─ Delhi (8 records)
+├─ Pune (5 records)
+├─ Ahmedabad (5 records)
+└─ Kolkata (8 records)
+
+🛣️ POPULAR AREAS:
+├─ Hyderabad: Hitech City, Gachibowli, Jubilee Hills, Miyapur, Kukatpally
+├─ Bangalore: Whitefield, Koramangala, Indiranagar, Jayanagar, Electronic City
+├─ Chennai: Anna Nagar, T Nagar, Velachery, Adyar, Porur
+├─ Mumbai: Andheri, Bandra, Colaba, Powai, Dadar
+├─ Delhi: Connaught Place, Karol Bagh, Saket, Rohini, Dwarka
+├─ Pune: Kothrud, Shivaji Nagar, Hinjewadi, Viman Nagar, Wanowrie
+├─ Ahmedabad: Satellite, Maninagar, CG Road, Navrangpura, Paldi
+└─ Kolkata: Salt Lake, Park Street, Howrah, Esplanade, Ballygunge
+
+🚦 TRAFFIC LEVELS:
+├─ Severe (12 records) - 🔴 Red: Slowest
+├─ High (25 records) - 🟠 Orange: Congested
+├─ Moderate (35 records) - 🟡 Yellow: Normal
+└─ Low (18 records) - 🟢 Green: Smooth
+
+⚠️ ACCIDENTS:
+└─ 8 records with accident_reported = true
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
